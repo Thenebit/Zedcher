@@ -1,0 +1,168 @@
+/* ============================================================
+   Zedcher — Accounts Page Styles
+   Table, inline add form, search.
+   ============================================================ */
+
+.accounts-container {
+  max-width: 1000px;
+}
+
+/* ---- Add Form ---- */
+
+.add-form-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: var(--gap-lg);
+}
+
+.add-form-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.add-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.add-form-grid .span-2 {
+  grid-column: span 2;
+}
+
+.add-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.add-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.add-field input {
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.add-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.add-field input::placeholder {
+  color: var(--text-muted);
+}
+
+.add-field.error input {
+  border-color: var(--red);
+}
+
+.btn-add {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: var(--accent);
+  color: #ffffff;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-add:hover {
+  background: var(--accent-dark);
+}
+
+/* ---- Table ---- */
+
+.accounts-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.accounts-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 14px 12px;
+  border-bottom: 2px solid var(--card-border);
+  background: var(--content-bg);
+  white-space: nowrap;
+}
+
+.accounts-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.accounts-table tbody tr:nth-child(even) {
+  background: var(--content-bg);
+}
+
+.accounts-table tbody tr:hover {
+  background: var(--accent-light);
+}
+
+.accounts-table .col-code {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+.accounts-table .col-class {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.btn-delete:hover {
+  color: var(--red);
+  background: var(--red-light);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 800px) {
+  .add-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .add-form-grid .span-2 {
+    grid-column: span 1;
+  }
+}
+
