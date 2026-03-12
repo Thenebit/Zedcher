@@ -1,0 +1,184 @@
+/* ============================================================
+   Zedcher — Transactions Ledger Styles
+   Full table, filters, row shading.
+   ============================================================ */
+
+.transactions-container {
+  max-width: 1200px;
+}
+
+/* ---- Filters Bar ---- */
+
+.filters-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: var(--gap-lg);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-search {
+  flex: 1;
+  min-width: 220px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.filter-search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.filter-search::placeholder {
+  color: var(--text-muted);
+}
+
+.filter-select {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  outline: none;
+  min-width: 160px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.filter-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.filter-count {
+  font-size: 13px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ---- Table Card ---- */
+
+.table-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* ---- Ledger Table ---- */
+
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.ledger-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 14px 12px;
+  border-bottom: 2px solid var(--card-border);
+  background: var(--content-bg);
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+}
+
+.ledger-table td {
+  padding: 11px 12px;
+  font-size: 13px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--card-border);
+  white-space: nowrap;
+}
+
+.ledger-table tbody tr:nth-child(even) {
+  background: var(--content-bg);
+}
+
+.ledger-table tbody tr:hover {
+  background: var(--accent-light);
+}
+
+.ledger-table .col-amount {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ledger-table .col-pv {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--accent-dark);
+}
+
+.ledger-table .col-trans {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.ledger-table .col-date {
+  color: var(--text-secondary);
+}
+
+.ledger-table .col-fund .fund-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+}
+
+.ledger-table .col-desc {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ledger-table .col-currency {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ---- Empty State ---- */
+
+.table-empty {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.table-empty svg {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+.table-empty p {
+  font-size: 14px;
+  font-weight: 500;
+}
+

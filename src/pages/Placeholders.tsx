@@ -1,25 +1,10 @@
 // ============================================================
 // Zedcher — Placeholder Pages
 // Stub pages for routes not yet built.
-// NewPV has been promoted to its own real page.
+// NewPV and Transactions have been promoted to real pages.
 // ============================================================
 
-import { List, Printer, BookOpen, Landmark } from "lucide-react";
-
-export function Transactions() {
-  return (
-    <div>
-      <div className="page-header">
-        <h1 className="page-title">Transactions</h1>
-        <p className="page-subtitle">Payment voucher ledger</p>
-      </div>
-      <div className="placeholder-page">
-        <List />
-        <p>Transaction ledger — coming on feature/transactions branch</p>
-      </div>
-    </div>
-  );
-}
+import { Printer, BookOpen, Landmark } from "lucide-react";
 
 export function ReprintPV() {
   return (
