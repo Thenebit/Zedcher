@@ -1,5 +1,6 @@
 // ============================================================
 // Zedcher — Entry Point
+// All pages are now real components. No more placeholders.
 // ============================================================
 
 import React from "react";
@@ -12,9 +13,9 @@ import App from "./App";
 import Dashboard from "./pages/Dashboard";
 import NewPV from "./pages/NewPV";
 import Transactions from "./pages/Transactions";
+import ReprintPV from "./pages/ReprintPV";
 import Accounts from "./pages/Accounts";
 import Funds from "./pages/Funds";
-import { ReprintPV } from "./pages/Placeholders";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

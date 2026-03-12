@@ -1,0 +1,288 @@
+/* ============================================================
+   Zedcher — Reprint PV Styles
+   Search, detail card, print-specific layout.
+   ============================================================ */
+
+.reprint-container {
+  max-width: 860px;
+}
+
+/* ---- Search Section ---- */
+
+.reprint-search-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: var(--gap-lg);
+}
+
+.reprint-search-row {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+}
+
+.reprint-search-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reprint-search-field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.reprint-search-field input {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--card-bg);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.reprint-search-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.reprint-search-field input::placeholder {
+  color: var(--text-muted);
+}
+
+.reprint-suggestions {
+  position: relative;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  margin-top: 4px;
+}
+
+.suggestion-item {
+  padding: 10px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: var(--accent-light);
+}
+
+.suggestion-pv {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+
+.suggestion-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.no-results {
+  padding: 16px 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ---- PV Detail Card ---- */
+
+.pv-detail-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.pv-detail-header {
+  background: var(--sidebar-bg);
+  color: #ffffff;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pv-detail-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pv-detail-pvno {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+
+.pv-detail-body {
+  padding: 24px;
+}
+
+.pv-detail-section {
+  margin-bottom: 20px;
+}
+
+.pv-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.pv-detail-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.pv-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 24px;
+}
+
+.pv-detail-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+.pv-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pv-field-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.pv-field-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.pv-field-value.mono {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 13px;
+  color: var(--accent-dark);
+}
+
+.pv-field-value.large {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* ---- Actions ---- */
+
+.pv-detail-actions {
+  padding: 16px 24px;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  gap: 12px;
+}
+
+/* ---- Empty State ---- */
+
+.reprint-empty {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-muted);
+}
+
+.reprint-empty svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+.reprint-empty p {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.reprint-empty span {
+  font-size: 13px;
+  display: block;
+  margin-top: 4px;
+}
+
+/* ---- Print Styles ---- */
+
+@media print {
+  /* Hide everything except the PV detail card */
+  .sidebar,
+  .reprint-search-card,
+  .pv-detail-actions,
+  .page-header,
+  .page-subtitle {
+    display: none !important;
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .layout-content {
+    padding: 0;
+    overflow: visible;
+  }
+
+  .reprint-container {
+    max-width: 100%;
+  }
+
+  .pv-detail-card {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .pv-detail-header {
+    background: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-size: 12px;
+  }
+}
+
