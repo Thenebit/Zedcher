@@ -1,7 +1,7 @@
 // ============================================================
 // Zedcher — New PV Form Page
 // Full payment voucher entry form.
-// - Dropdowns from accounts context and mock funds
+// - Dropdowns from accounts and funds contexts
 // - Auto-fills account code/class on description select
 // - Generates PV number on submit
 // - Validates required fields
@@ -13,7 +13,8 @@ import { useState, useMemo, useCallback } from "react";
 import { CheckCircle, X } from "lucide-react";
 import { useTransactions } from "../context/TransactionContext";
 import { useAccounts } from "../context/AccountContext";
-import { MOCK_FUNDS, AMOUNT_TYPES } from "../data/mock";
+import { useFunds } from "../context/FundContext";
+import { AMOUNT_TYPES } from "../data/mock";
 import "../styles/pv-form.css";
 
 // ---- Constants ----
@@ -116,6 +117,7 @@ function getInitials(name: string): string {
 export default function NewPV() {
   const { addTransaction, getNextPvNumber, getNextTransNo } = useTransactions();
   const { accounts } = useAccounts();
+  const { funds } = useFunds();
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [success, setSuccess] = useState<{ pvNo: string } | null>(null);
@@ -128,8 +130,8 @@ export default function NewPV() {
 
   // Derive fund acronym from selected source
   const selectedFund = useMemo(
-    () => MOCK_FUNDS.find((f) => f.project_name === form.source_of_fund) || null,
-    [form.source_of_fund],
+    () => funds.find((f) => f.project_name === form.source_of_fund) || null,
+    [form.source_of_fund, funds],
   );
 
   const handleChange = useCallback(
@@ -264,7 +266,7 @@ export default function NewPV() {
             <label>Source of Fund <span className="required">*</span></label>
             <select name="source_of_fund" value={form.source_of_fund} onChange={handleChange}>
               <option value="">Select fund source</option>
-              {MOCK_FUNDS.map((f) => (
+              {funds.map((f) => (
                 <option key={f.id} value={f.project_name}>{f.project_name}</option>
               ))}
             </select>
