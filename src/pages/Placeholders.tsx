@@ -1,25 +1,10 @@
 // ============================================================
 // Zedcher — Placeholder Pages
-// Stub pages for routes that will be built on their own
-// feature branches. Each export is a separate component.
+// Stub pages for routes not yet built.
+// NewPV has been promoted to its own real page.
 // ============================================================
 
-import { FilePlus, List, Printer, BookOpen, Landmark } from "lucide-react";
-
-export function NewPV() {
-  return (
-    <div>
-      <div className="page-header">
-        <h1 className="page-title">New Payment Voucher</h1>
-        <p className="page-subtitle">Create a new PV entry</p>
-      </div>
-      <div className="placeholder-page">
-        <FilePlus />
-        <p>PV Form — coming on feature/pv-form branch</p>
-      </div>
-    </div>
-  );
-}
+import { List, Printer, BookOpen, Landmark } from "lucide-react";
 
 export function Transactions() {
   return (
@@ -80,4 +65,3 @@ export function Funds() {
     </div>
   );
 }
-

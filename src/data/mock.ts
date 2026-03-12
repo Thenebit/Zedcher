@@ -1,8 +1,8 @@
 // ============================================================
 // Zedcher — Mock Data Service
-// All data access goes through functions (not raw exports).
-// This mirrors the async invoke() pattern we'll use with Tauri.
-// When backend is ready: swap mock function body → invoke() call.
+// SEED data is exported for TransactionContext to pre-load.
+// Async functions remain for any component that needs them
+// directly (will be replaced by invoke() calls later).
 // ============================================================
 
 import type {
@@ -13,9 +13,9 @@ import type {
   MonthlyCount,
 } from "../types";
 
-// ---- Raw mock data (private to this module) ----
+// ---- Seed data (exported for context pre-load) ----
 
-const MOCK_TRANSACTIONS: Transaction[] = [
+export const SEED_TRANSACTIONS: Transaction[] = [
   {
     id: 1,
     trans_no: "TRN001",
@@ -210,7 +210,7 @@ const MOCK_TRANSACTIONS: Transaction[] = [
   },
 ];
 
-const MOCK_ACCOUNTS: Account[] = [
+export const MOCK_ACCOUNTS: Account[] = [
   { id: 1, account_class: "Administrative & General Expenses", sub_item: "Office Expenses", sub_sub_item: "Office Supplies", code: "5010" },
   { id: 2, account_class: "Administrative & General Expenses", sub_item: "Professional Fees", sub_sub_item: "Consulting Services", code: "5020" },
   { id: 3, account_class: "Cost of Revenue", sub_item: "Direct Costs", sub_sub_item: "Fuel and Transport", code: "5030" },
@@ -219,63 +219,21 @@ const MOCK_ACCOUNTS: Account[] = [
   { id: 6, account_class: "Administrative & General Expenses", sub_item: "Staff Costs", sub_sub_item: "Training and Development", code: "5060" },
 ];
 
-const MOCK_FUNDS: Fund[] = [
+export const MOCK_FUNDS: Fund[] = [
   { id: 1, project_name: "ECOBANK GH", acronym: "ECO", funding_source: "Ecobank Ghana Limited" },
   { id: 2, project_name: "CASH ACCOUNT", acronym: "CASH", funding_source: "Internal Cash" },
 ];
 
-// ---- Public API (async to match future invoke() pattern) ----
+// Amount type options matching original Excel SOURCE OF FUNDS sheet
+export const AMOUNT_TYPES = [
+  "WAGES & SALARIES",
+  "VAT EXCLUSIVE AMOUNT (S)",
+  "VAT EXCLUSIVE AMOUNT (F)",
+  "VAT INCLUSIVE AMOUNT (S)",
+  "VAT INCLUSIVE AMOUNT (F)",
+] as const;
 
-export async function getTransactions(): Promise<Transaction[]> {
-  return MOCK_TRANSACTIONS;
-}
-
-export async function getRecentTransactions(limit: number = 8): Promise<Transaction[]> {
-  return [...MOCK_TRANSACTIONS]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, limit);
-}
-
-export async function getDashboardStats(): Promise<DashboardStats> {
-  const now = new Date();
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
-
-  const monthTxns = MOCK_TRANSACTIONS.filter((t) => {
-    const d = new Date(t.date);
-    return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-  });
-
-  return {
-    total_transactions: MOCK_TRANSACTIONS.length,
-    total_amount_paid: MOCK_TRANSACTIONS.reduce((sum, t) => sum + t.amount_to_pay, 0),
-    month_transactions: monthTxns.length,
-    month_amount: monthTxns.reduce((sum, t) => sum + t.amount_to_pay, 0),
-  };
-}
-
-export async function getMonthlyTransactionCounts(): Promise<MonthlyCount[]> {
-  const counts: Record<string, number> = {};
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-  // Seed last 6 months with 0 so chart always has bars
-  const now = new Date();
-  for (let i = 5; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    const key = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
-    counts[key] = 0;
-  }
-
-  for (const t of MOCK_TRANSACTIONS) {
-    const d = new Date(t.date);
-    const key = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
-    if (key in counts) {
-      counts[key]++;
-    }
-  }
-
-  return Object.entries(counts).map(([month, count]) => ({ month, count }));
-}
+// ---- Public async API (matches future invoke() pattern) ----
 
 export async function getAccounts(): Promise<Account[]> {
   return MOCK_ACCOUNTS;
@@ -284,4 +242,3 @@ export async function getAccounts(): Promise<Account[]> {
 export async function getFunds(): Promise<Fund[]> {
   return MOCK_FUNDS;
 }
-
