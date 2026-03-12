@@ -1,0 +1,178 @@
+/* ============================================================
+   Zedcher — Dashboard Styles
+   Stat cards, chart section, recent transactions table.
+   ============================================================ */
+
+/* ---- Stat Cards Grid ---- */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-lg);
+  margin-bottom: var(--gap-lg);
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-card-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.stat-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.stat-card-icon.blue {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.stat-card-icon.green {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.stat-card-icon.amber {
+  background: var(--amber-light);
+  color: var(--amber);
+}
+
+.stat-card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* ---- Middle Section (Chart + Table side-by-side) ---- */
+
+.dashboard-middle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-lg);
+  margin-bottom: var(--gap-lg);
+}
+
+.dashboard-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+.dashboard-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--gap-md);
+}
+
+.dashboard-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dashboard-card-badge {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--content-bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* ---- Recent Transactions Table ---- */
+
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 8px 12px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.recent-table td {
+  padding: 10px 8px;
+  font-size: 13px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.recent-table tr:last-child td {
+  border-bottom: none;
+}
+
+.recent-table .amount {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.recent-table .date {
+  color: var(--text-secondary);
+}
+
+.recent-table .pv-no {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 12px;
+  color: var(--accent-dark);
+}
+
+.recent-table .fund-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+}
+
+/* ---- Responsive: stack on narrow windows ---- */
+
+@media (max-width: 1000px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dashboard-middle {
+    grid-template-columns: 1fr;
+  }
+}
+
