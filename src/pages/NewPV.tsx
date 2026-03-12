@@ -1,7 +1,7 @@
 // ============================================================
 // Zedcher — New PV Form Page
 // Full payment voucher entry form.
-// - Dropdowns from mock accounts/funds
+// - Dropdowns from accounts context and mock funds
 // - Auto-fills account code/class on description select
 // - Generates PV number on submit
 // - Validates required fields
@@ -12,7 +12,8 @@
 import { useState, useMemo, useCallback } from "react";
 import { CheckCircle, X } from "lucide-react";
 import { useTransactions } from "../context/TransactionContext";
-import { MOCK_ACCOUNTS, MOCK_FUNDS, AMOUNT_TYPES } from "../data/mock";
+import { useAccounts } from "../context/AccountContext";
+import { MOCK_FUNDS, AMOUNT_TYPES } from "../data/mock";
 import "../styles/pv-form.css";
 
 // ---- Constants ----
@@ -114,14 +115,15 @@ function getInitials(name: string): string {
 
 export default function NewPV() {
   const { addTransaction, getNextPvNumber, getNextTransNo } = useTransactions();
+  const { accounts } = useAccounts();
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [success, setSuccess] = useState<{ pvNo: string } | null>(null);
 
   // Derive account code and class from selected description
   const selectedAccount = useMemo(
-    () => MOCK_ACCOUNTS.find((a) => a.sub_sub_item === form.description) || null,
-    [form.description],
+    () => accounts.find((a) => a.sub_sub_item === form.description) || null,
+    [form.description, accounts],
   );
 
   // Derive fund acronym from selected source
@@ -320,7 +322,7 @@ export default function NewPV() {
             <label>Sub-Sub-Item <span className="required">*</span></label>
             <select name="description" value={form.description} onChange={handleChange}>
               <option value="">Select expense type</option>
-              {MOCK_ACCOUNTS.map((a) => (
+              {accounts.map((a) => (
                 <option key={a.id} value={a.sub_sub_item}>{a.sub_sub_item}</option>
               ))}
             </select>

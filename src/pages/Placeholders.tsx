@@ -1,10 +1,9 @@
 // ============================================================
 // Zedcher — Placeholder Pages
 // Stub pages for routes not yet built.
-// NewPV and Transactions have been promoted to real pages.
 // ============================================================
 
-import { Printer, BookOpen, Landmark } from "lucide-react";
+import { Printer, Landmark } from "lucide-react";
 
 export function ReprintPV() {
   return (
@@ -16,21 +15,6 @@ export function ReprintPV() {
       <div className="placeholder-page">
         <Printer />
         <p>Reprint PV — coming on feature/reprint-pv branch</p>
-      </div>
-    </div>
-  );
-}
-
-export function Accounts() {
-  return (
-    <div>
-      <div className="page-header">
-        <h1 className="page-title">Chart of Accounts</h1>
-        <p className="page-subtitle">Manage account codes</p>
-      </div>
-      <div className="placeholder-page">
-        <BookOpen />
-        <p>Accounts manager — coming on feature/accounts branch</p>
       </div>
     </div>
   );
