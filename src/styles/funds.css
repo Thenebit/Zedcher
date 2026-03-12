@@ -1,0 +1,54 @@
+/* ============================================================
+   Zedcher — Funds Page Styles
+   Reuses patterns from accounts.css with minor adjustments.
+   ============================================================ */
+
+.funds-container {
+  max-width: 900px;
+}
+
+.funds-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.funds-table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 14px 12px;
+  border-bottom: 2px solid var(--card-border);
+  background: var(--content-bg);
+  white-space: nowrap;
+}
+
+.funds-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.funds-table tbody tr:nth-child(even) {
+  background: var(--content-bg);
+}
+
+.funds-table tbody tr:hover {
+  background: var(--accent-light);
+}
+
+.funds-table .col-acronym {
+  font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+.funds-table .col-source {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+

@@ -5,9 +5,9 @@
 // ============================================================
 
 import { useState, useMemo } from "react";
-import { Search, FileX } from "lucide-react";
+import { FileX } from "lucide-react";
 import { useTransactions } from "../context/TransactionContext";
-import { MOCK_FUNDS } from "../data/mock";
+import { useFunds } from "../context/FundContext";
 import "../styles/transactions.css";
 
 function formatCurrency(amount: number, currency: string): string {
@@ -27,6 +27,7 @@ function formatDate(iso: string): string {
 
 export default function Transactions() {
   const { transactions } = useTransactions();
+  const { funds } = useFunds();
   const [search, setSearch] = useState("");
   const [fundFilter, setFundFilter] = useState("");
 
@@ -36,10 +37,8 @@ export default function Transactions() {
     return [...transactions]
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .filter((t) => {
-        // Fund filter
         if (fundFilter && t.source_of_fund !== fundFilter) return false;
 
-        // Search filter — matches payee, PV no, trans no, or description
         if (query) {
           return (
             t.payee.toLowerCase().includes(query) ||
@@ -75,7 +74,7 @@ export default function Transactions() {
           onChange={(e) => setFundFilter(e.target.value)}
         >
           <option value="">All Funds</option>
-          {MOCK_FUNDS.map((f) => (
+          {funds.map((f) => (
             <option key={f.id} value={f.project_name}>{f.project_name}</option>
           ))}
         </select>
@@ -135,4 +134,3 @@ export default function Transactions() {
     </div>
   );
 }
-
