@@ -1,11 +1,10 @@
 // ============================================================
 // Zedcher — Dashboard Page
-// Top: 4 stat cards
-// Middle: monthly bar chart (left) + recent transactions (right)
-// Data from mock service — swap to invoke() later.
+// Now reads from TransactionContext (shared state).
+// New PVs created via the form appear here immediately.
 // ============================================================
 
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import {
   BarChart,
   Bar,
@@ -22,15 +21,10 @@ import {
   TrendingUp,
 } from "lucide-react";
 import StatCard from "../components/StatCard";
-import {
-  getDashboardStats,
-  getMonthlyTransactionCounts,
-  getRecentTransactions,
-} from "../data/mock";
-import type { DashboardStats, MonthlyCount, Transaction } from "../types";
+import { useTransactions } from "../context/TransactionContext";
+import type { MonthlyCount } from "../types";
 import "../styles/dashboard.css";
 
-// Format number as GHS currency
 function formatCurrency(amount: number): string {
   return `GHS ${amount.toLocaleString("en-GH", {
     minimumFractionDigits: 2,
@@ -38,7 +32,6 @@ function formatCurrency(amount: number): string {
   })}`;
 }
 
-// Format ISO date to readable
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -48,24 +41,55 @@ function formatDate(iso: string): string {
 }
 
 export default function Dashboard() {
-  const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [monthly, setMonthly] = useState<MonthlyCount[]>([]);
-  const [recent, setRecent] = useState<Transaction[]>([]);
+  const { transactions } = useTransactions();
 
-  useEffect(() => {
-    // Parallel fetch — same pattern as real Tauri invoke()
-    Promise.all([
-      getDashboardStats(),
-      getMonthlyTransactionCounts(),
-      getRecentTransactions(6),
-    ]).then(([s, m, r]) => {
-      setStats(s);
-      setMonthly(m);
-      setRecent(r);
+  const stats = useMemo(() => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    const monthTxns = transactions.filter((t) => {
+      const d = new Date(t.date);
+      return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
     });
-  }, []);
 
-  if (!stats) return null; // Brief flash guard — will be instant with mock data
+    return {
+      total_transactions: transactions.length,
+      total_amount_paid: transactions.reduce((sum, t) => sum + t.amount_to_pay, 0),
+      month_transactions: monthTxns.length,
+      month_amount: monthTxns.reduce((sum, t) => sum + t.amount_to_pay, 0),
+    };
+  }, [transactions]);
+
+  const monthly = useMemo((): MonthlyCount[] => {
+    const counts: Record<string, number> = {};
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const now = new Date();
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const key = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+      counts[key] = 0;
+    }
+
+    for (const t of transactions) {
+      const d = new Date(t.date);
+      const key = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+      if (key in counts) {
+        counts[key]++;
+      }
+    }
+
+    return Object.entries(counts).map(([month, count]) => ({ month, count }));
+  }, [transactions]);
+
+  const recent = useMemo(
+    () =>
+      [...transactions]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 6),
+    [transactions],
+  );
 
   return (
     <div>
@@ -74,7 +98,7 @@ export default function Dashboard() {
         <p className="page-subtitle">Payment voucher overview</p>
       </div>
 
-      {/* ---- Stat Cards ---- */}
+      {/* Stat Cards */}
       <div className="stats-grid">
         <StatCard
           label="Total Transactions"
@@ -102,9 +126,8 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* ---- Middle: Chart + Recent Table ---- */}
+      {/* Chart + Recent Table */}
       <div className="dashboard-middle">
-        {/* Bar Chart */}
         <div className="dashboard-card">
           <div className="dashboard-card-header">
             <h2 className="dashboard-card-title">Monthly Transactions</h2>
@@ -144,7 +167,6 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
 
-        {/* Recent Transactions */}
         <div className="dashboard-card">
           <div className="dashboard-card-header">
             <h2 className="dashboard-card-title">Recent Transactions</h2>
@@ -181,4 +203,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
