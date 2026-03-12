@@ -11,8 +11,8 @@ import { TransactionProvider } from "./context/TransactionContext";
 import App from "./App";
 import Dashboard from "./pages/Dashboard";
 import NewPV from "./pages/NewPV";
+import Transactions from "./pages/Transactions";
 import {
-  Transactions,
   ReprintPV,
   Accounts,
   Funds,
