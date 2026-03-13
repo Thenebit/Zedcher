@@ -9,8 +9,6 @@ import type {
   Transaction,
   Account,
   Fund,
-  DashboardStats,
-  MonthlyCount,
 } from "../types";
 
 // ---- Seed data (exported for context pre-load) ----
