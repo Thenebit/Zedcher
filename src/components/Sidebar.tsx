@@ -29,7 +29,7 @@ export default function Sidebar() {
     <aside className="sidebar">
       {/* Brand */}
       <div className="sidebar-brand">
-        <img src="/src/assets/logo.png" alt="Zedcher" className="sidebar-brand-logo" / >
+        <img src="logo.png" alt="Zedcher" className="sidebar-brand-logo" / >
         <span className="sidebar-brand-name">Zedcher</span>
       </div>
 

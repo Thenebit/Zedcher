@@ -115,7 +115,7 @@ export default function ReprintPV() {
 
             {/* LETTERHEAD */}
             <div className="pv-letterhead">
-              <img src="/src/assets/logo.png" alt="Logo" className="pv-letterhead-logo" />
+              <img src="logo.png" alt="Logo" className="pv-letterhead-logo" />
               <div>
                 <div className="pv-company-name">ZEDULO GHANA LTD</div>
                 <div className="pv-form-title">Payment Voucher</div>
